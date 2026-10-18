@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 5s        # Thu thập metric mỗi 5 giây để demo nhảy biểu đồ nhanh
+  evaluation_interval: 5s
+
+scrape_configs:
+  # Job 1: Tự giám sát Prometheus
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Job 2: Giám sát Spring Boot Microservice
+  - job_name: 'spring-boot-order-service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 3s
+    static_configs:
+      - targets: ['order-service:8080']
+        labels:
+          application: 'order-service'
+          environment: 'production'
