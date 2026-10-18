@@ -9,8 +9,7 @@
 3. [Kiểm Tra Các Cổng Mạng Trên Trình Duyệt](#3-kiểm-tra-các-cổng-mạng)
 4. [HƯỚNG DẪN CHI TIẾT 4 KỊCH BẢN LIVE DEMO](#4-hướng-dẫn-chi-tiết-4-kịch-bản-live-demo)
 5. [HƯỚNG DẪN CÁCH TẠO DASHBOARD TRÊN GRAFANA TỪ ĐẦU](#5-hướng-dẫn-tạo-dashboard-trên-grafana)
-6. [KỊCH BẢN NÓI MẪU 3 PHÚT KHI ĐỨNG TRÊN BỤC DEMO](#6-kịch-bản-nói-mẫu-khi-thuyết-trình)
-7. [Dừng và Dọn Dẹp Hệ Thống](#7-dừng-và-dọn-dẹp-hệ-thống)
+6. [Dừng và Dọn Dẹp Hệ Thống](#6-dừng-và-dọn-dẹp-hệ-thống)
 
 ---
 
@@ -111,21 +110,8 @@ Nếu thầy cô yêu cầu giải thích hoặc tự tạo lại bằng tay:
 
 ---
 
-## 6. KỊCH BẢN NÓI MẪU KHI THUYẾT TRÌNH TRÊN LỚP (3 PHÚT)
 
-* **Chuẩn bị màn hình:** Chia đôi màn hình máy tính (Nửa bên trái: Cửa sổ Terminal chạy script `load-test`; Nửa bên phải: Trình duyệt mở `Grafana Dashboard`).
-* **Lời nói:**
-  > *"Kính thưa thầy/cô và các bạn, đây là phần Hands-on Demonstration của nhóm 9 về đề tài Production Readiness: Prometheus & Grafana.*
-  > 
-  > *Ở màn hình bên trái, nhóm đang chạy dịch vụ Spring Boot và dùng script bắn tải giả lập lưu lượng người dùng truy cập. Ở màn hình bên phải, Grafana được kết nối trực tiếp vào máy chủ Prometheus để vẽ lại số liệu theo chu kỳ 5 giây.*
-  > 
-  > *Ban đầu khi hệ thống xử lý bình thường, thầy cô thấy biểu đồ Throughput và Latency đều ở ngưỡng xanh an toàn, tỉ lệ lỗi là 0%.*
-  > 
-  > *Bây giờ, nhóm sẽ kích hoạt kịch bản sự cố phát sinh lỗi 500 hoặc request bị nghẽn mạng: Ngay lập tức trên Grafana, đường cong P99 Latency vọt lên và tỉ lệ lỗi Error Rate chuyển sang màu đỏ rực. Nhờ cơ chế giám sát thời gian thực này, kỹ sư vận hành có thể phát hiện và cô lập lỗi trong vòng vài giây trước khi khách hàng kịp phàn nàn."*
-
----
-
-## 7. DỪNG VÀ DỌN DẸP HỆ THỐNG
+## 6. DỪNG VÀ DỌN DẸP HỆ THỐNG
 Khi thuyết trình xong:
 ```bash
 docker compose down
