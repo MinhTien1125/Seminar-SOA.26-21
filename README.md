@@ -1,11 +1,11 @@
 # HƯỚNG DẪN TOÀN DIỆN: SEMINAR PROMETHEUS & GRAFANA (PRODUCTION READINESS)
-Đề tài Seminar số 14 (Nhóm 9): Metrics Collection, Dashboards & System Monitoring in Microservices.
+Đề tài Seminar số 9-1: Metrics Collection, Dashboards & System Monitoring in Microservices.
 
 ---
 
 ## 📑 MỤC LỤC
 1. [Yêu Cầu Chuẩn Bị (Prerequisites)](#1-yêu-cầu-chuẩn-bị)
-2. [Khởi Động Hệ Thống 1-Click Bằng Docker](#2-khởi-động-hệ-thống-1-click)
+2. [Khởi Động Hệ Thống Bằng Docker](#2-khởi-động-hệ-thống-1-click)
 3. [Kiểm Tra Các Cổng Mạng Trên Trình Duyệt](#3-kiểm-tra-các-cổng-mạng)
 4. [HƯỚNG DẪN CHI TIẾT 4 KỊCH BẢN LIVE DEMO](#4-hướng-dẫn-chi-tiết-4-kịch-bản-live-demo)
 5. [HƯỚNG DẪN CÁCH TẠO DASHBOARD TRÊN GRAFANA TỪ ĐẦU](#5-hướng-dẫn-tạo-dashboard-trên-grafana)
