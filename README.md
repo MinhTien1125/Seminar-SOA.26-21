@@ -1,4 +1,4 @@
-# HƯỚNG DẪN TOÀN DIỆN: SEMINAR PROMETHEUS & GRAFANA (PRODUCTION READINESS)
+# SEMINAR PROMETHEUS & GRAFANA (PRODUCTION READINESS)
 Đề tài Seminar số 9-1: Metrics Collection, Dashboards & System Monitoring in Microservices.
 
 ---
