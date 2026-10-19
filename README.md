@@ -7,7 +7,7 @@
 1. [Yêu Cầu Chuẩn Bị (Prerequisites)](#1-yêu-cầu-chuẩn-bị)
 2. [Khởi Động Hệ Thống Bằng Docker](#2-khởi-động-hệ-thống-1-click)
 3. [Kiểm Tra Các Cổng Mạng Trên Trình Duyệt](#3-kiểm-tra-các-cổng-mạng)
-4. [Hướng Dẫn Chi Tiết Demo](#4-hướng-dẫn-chi-tiết-4-kịch-bản-live-demo)
+4. [Hướng Dẫn Chi Tiết Demo](#4-hướng-dẫn-chi-tiết-demo)
 5. [Hướng Dẫn Cách Tạo Dashboard Trên Grafana](#5-hướng-dẫn-cách-tạo-dashboard-trên-grafana)
 6. [Dừng và Dọn Dẹp Hệ Thống](#6-dừng-và-dọn-dẹp-hệ-thống)
 
@@ -50,7 +50,7 @@ Cả 3 container `order-service`, `prometheus`, `grafana` đều báo trạng th
 
 ---
 
-## 4. HƯỚNG DẪN CHI TIẾT 4 KỊCH BẢN LIVE DEMO
+## 4. HƯỚNG DẪN CHI TIẾT DEMO
 
 Mở một cửa sổ Terminal mới và chạy script bắn tải:
 - **Trên macOS / Linux / Git Bash:** `bash load-test.sh`
