@@ -35,7 +35,7 @@
           "custom": {
             "lineWidth": 2,
             "gradientMode": "scheme",
-            "thresholdsStyle": { "mode": "line+area" }
+            "thresholdsStyle": { "mode": "line" }
           },
           "thresholds": {
             "mode": "absolute",
@@ -68,13 +68,13 @@
           "custom": {
             "lineWidth": 2,
             "gradientMode": "scheme",
-            "thresholdsStyle": { "mode": "line+area" }
+            "thresholdsStyle": { "mode": "line" }
           },
           "thresholds": {
             "mode": "absolute",
             "steps": [
               { "color": "green", "value": null },
-              { "color": "red", "value": 5 }
+              { "color": "red", "value": 40 }
             ]
           },
           "unit": "percent"
