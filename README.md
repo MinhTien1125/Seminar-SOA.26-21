@@ -13,6 +13,39 @@
 
 ---
 
+```text
+prometheus-grafana-spring-boot-demo/
+│
+├── docker-compose.yml                     # File chính: Khởi chạy 3 container (Spring Boot, Prometheus, Grafana)
+├── load-test.sh                           # Script bắn tải có menu 4 kịch bản (Linux / macOS / Git Bash)
+├── load-test.bat                          # Script bắn tải có menu 4 kịch bản (Windows Command Prompt)
+├── load-test.py                           # Script bắn tải đa luồng 20 threads (Python - chạy mọi hệ điều hành)
+├── README.md                              # Tài liệu hướng dẫn toàn diện từ A-Z
+│
+├── prometheus/                            # Cấu hình máy chủ Prometheus
+│   └── prometheus.yml                     # Khai báo job scrape định kỳ kéo metric từ Spring Boot (/actuator/prometheus)
+│
+├── grafana/                               # Cấu hình tự động nạp (Provisioning) cho Grafana
+│   ├── dashboards/
+│   │   └── spring-boot-dashboard.json     # File JSON định nghĩa 4 panel biểu đồ (Throughput, P99 Latency, Error Rate, JVM Heap)
+│   └── provisioning/
+│       ├── datasources/
+│       │   └── datasource.yml             # Tự động kết nối Grafana với Prometheus (không cần bấm tay)
+│       └── dashboards/
+│           └── dashboards.yml             # Tự động nạp thư mục dashboards khi container khởi động
+│
+└── backend/                               # Mã nguồn ứng dụng Spring Boot Microservice
+    ├── pom.xml                            # Khai báo thư viện: spring-boot-starter-web, actuator, micrometer-registry-prometheus
+    ├── Dockerfile                         # Multi-stage build container Java 17 siêu nhẹ (Eclipse Temurin JRE)
+    └── src/
+        └── main/
+            ├── java/com/example/demo/
+            │   ├── DemoApplication.java    # File chạy chính của Spring Boot (@SpringBootApplication)
+            │   └── OrderController.java   # REST Controller: API /api/orders, /simulate-slow (1.5s), /simulate-error (500)
+            └── resources/
+                └── application.yml        # Cấu hình Actuator expose /actuator/prometheus & percentiles-histogram
+```
+
 ## 1. YÊU CẦU CHUẨN BỊ
 - Máy tính có cài sẵn **Docker Desktop** (hoặc Docker Engine + Docker Compose).
 - Kiểm tra bằng lệnh: `docker compose version` hoặc `docker --version`.
