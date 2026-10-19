@@ -1,26 +1,25 @@
 #!/bin/bash
 echo "=========================================================="
-echo " 🚀 BỘ BẮN TẢI CHUYÊN NGHIỆP CHO PROMETHEUS & GRAFANA DEMO"
+echo "  BỘ BẮN TẢI CHO PROMETHEUS & GRAFANA DEMO"
 echo "=========================================================="
-echo "Chọn kịch bản bạn muốn kích hoạt:"
-echo "  [1] Tải bình thường (20-30 req/s, 200 OK)"
-echo "  [2] BÃO TẢI FLASH SALE (Bắn song song nhiều luồng > 150 req/s)"
-echo "  [3] NGHẼN MẠNG & CHẬM API (Chuyên bắn vào /simulate-slow để P99 Latency tăng vọt)"
-echo "  [4] SỰ CỐ LỖI 500 (Bắn lỗi liên tục để Error Rate chuyển màu đỏ)"
+echo "  [1] tải bình thường (20-30 req/s, 200 ok)"
+echo "  [2] bão tải flash sale (bắn song song nhiều luồng > 150 req/s)"
+echo "  [3] nghẽn mạng & chậm api (bắn vào /simulate-slow)"
+echo "  [4] sự cố lỗi 500 (bắn vào /simulate-error)"
 echo "----------------------------------------------------------"
-read -p "Nhập lựa chọn (1, 2, 3, hoặc 4): " choice
+read -p "nhập lựa chọn (1, 2, 3, hoặc 4): " choice
 
 case $choice in
   1)
-    echo "🟢 Bắt đầu Kịch Bản 1: Tải bình thường (Ctrl+C để dừng)..."
+    echo " bắt đầu: tải bình thường (ctrl+c để dừng)..."
     while true; do
       curl -s "http://localhost:8080/api/orders" > /dev/null
-      echo -ne "GET /api/orders (200 OK)\r"
+      echo -ne "get /api/orders (200 ok)\r"
       sleep 0.05
     done
     ;;
   2)
-    echo "🟡 Bắt đầu Kịch Bản 2: BÃO TẢI FLASH SALE (Chạy nền song song 15 tiến trình)..."
+    echo " bắt đầu: bão tải flash sale (chạy nền song song)..."
     for j in {1..15}; do
       (
         while true; do
@@ -29,12 +28,12 @@ case $choice in
         done
       ) &
     done
-    echo "⚡ Đang bắn tải nặng (> 150 RPS)! Nhìn Grafana đồ thị Throughput đang vọt lên đỉnh!"
-    echo "Nhấn Ctrl+C rồi chạy 'killall curl 2>/dev/null' để dừng."
+    echo " đang bắn tải nặng (> 150 rps)! mở grafana xem đồ thị throughput đang vọt lên đỉnh!"
+    echo "nhấn ctrl+c rồi chạy 'killall curl 2>/dev/null' để dừng."
     wait
     ;;
   3)
-    echo "🟣 Bắt đầu Kịch Bản 3: NGHẼN MẠNG (Độ trễ cao 1.5s)..."
+    echo " bắt đầu: nghẽn mạng (độ trễ cao 1.5s)..."
     for j in {1..8}; do
       (
         while true; do
@@ -42,18 +41,18 @@ case $choice in
         done
       ) &
     done
-    echo "⏱️ Đang kích hoạt độ trễ cao! Nhìn Grafana đồ thị P99 Latency đang vọt lên > 1500ms!"
+    echo " đang kích hoạt độ trễ cao! mở grafana xem đồ thị p99 latency đang vọt lên > 1500ms!"
     wait
     ;;
   4)
-    echo "🔴 Bắt đầu Kịch Bản 4: BẮN LỖI 500 (Alerting)..."
+    echo " bắt đầu: sự cố lỗi 500 (bắn lỗi liên tục)..."
     while true; do
       curl -s "http://localhost:8080/api/orders/simulate-error" > /dev/null
-      echo -ne "⚠️ Bắn lỗi 500 vào /simulate-error\r"
+      echo -ne " bắn lỗi 500 vào /simulate-error\r"
       sleep 0.02
     done
     ;;
   *)
-    echo "Lựa chọn không hợp lệ. Vui lòng chạy lại."
+    echo "lựa chọn không hợp lệ. vui lòng chạy lại."
     ;;
 esac
