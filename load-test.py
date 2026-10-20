@@ -6,13 +6,13 @@ from concurrent.futures import ThreadPoolExecutor
 print("==========================================================")
 print(" PYTHON MULTI-THREADED LOAD GENERATOR (PROMETHEUS DEMO)")
 print("==========================================================")
-print("  [1] tải bình thường (1 luồng, ~20 req/s)")
-print("  [2] bão tải flash sale (đa luồng 20 threads, > 150-300 req/s)")
-print("  [3] nghẽn mạng & chậm api (bắn vào /simulate-slow)")
-print("  [4] sự cố lỗi 500 (bắn lỗi 500 liên tục)")
+print("  [1] Tai binh thuong (1 luong, ~20-25 req/s)")
+print("  [2] Bao tai flash sale (Da luong 20 threads, > 150-300 req/s)")
+print("  [3] Nghen mang & cham API (Ban vao /simulate-slow)")
+print("  [4] Su co loi 500 (Ban loi 500 lien tuc)")
 print("----------------------------------------------------------")
 
-choice = input("nhập số (1, 2, 3, hoặc 4): ").strip()
+choice = input("Nhap so (1, 2, 3, hoac 4): ").strip()
 base_url = "http://localhost:8080/api/orders"
 
 def call_endpoint(url):
@@ -26,38 +26,38 @@ def call_endpoint(url):
         return 0
 
 if choice == "2":
-    print("\n đang bắn bão tải đa luồng (20 threads)... mở grafana xem đồ thị rps vọt lên đỉnh!")
-    print("nhấn ctrl+c để dừng lại.")
+    print("\n[SPIKE] Dang ban bao tai da luong (20 threads)... Mo Grafana xem do thi RPS vot len dinh!")
+    print("Nhan Ctrl+C de dung lai.")
     with ThreadPoolExecutor(max_workers=20) as executor:
         while True:
             futures = [executor.submit(call_endpoint, base_url) for _ in range(25)]
             for f in futures:
                 f.result()
-            print(" đã bắn thêm 25 requests...", end="\r")
+            print("[SPIKE] Da ban them 25 requests...", end="\r")
 
 elif choice == "3":
-    print("\n đang kích hoạt nghẽn mạng (/simulate-slow)... mở grafana xem p99 latency vọt lên > 1500ms")
-    print("nhấn ctrl+c để dừng lại.")
+    print("\n[SLOW] Dang kich hoat nghen mang (/simulate-slow)... Mo Grafana xem P99 Latency vot len > 1500ms!")
+    print("Nhan Ctrl+C de dung lai.")
     with ThreadPoolExecutor(max_workers=10) as executor:
         while True:
             futures = [executor.submit(call_endpoint, base_url + "/simulate-slow") for _ in range(10)]
             for f in futures:
                 f.result()
-            print(" đang gửi request có độ trễ 1.5s...", end="\r")
+            print("[SLOW] Dang gui request co do tre 1.5s...", end="\r")
 
 elif choice == "4":
-    print("\n đang bắn lỗi 500 (/simulate-error)... mở grafana xem error rate chuyển sang màu đỏ")
-    print("nhấn ctrl+c để dừng lại.")
+    print("\n[ERROR] Dang ban loi 500 (/simulate-error)... Mo Grafana xem error rate chuyen sang mau do!")
+    print("Nhan Ctrl+C de dung lai.")
     while True:
         call_endpoint(base_url + "/simulate-error")
-        print(" bắn 1 request lỗi 500...", end="\r")
+        print("[ERROR 500] Ban 1 request loi 500...", end="\r")
         time.sleep(0.02)
 
 else:
-    print("\n đang chạy tải bình thường (200 ok)... nhấn ctrl+c để dừng.")
+    print("\n[NORMAL] Dang chay tai binh thuong (200 OK)... Nhan Ctrl+C de dung.")
     count = 0
     while True:
         count += 1
         call_endpoint(base_url)
-        print(f"[{count}] get 200 ok", end="\r")
+        print(f"[{count}] GET 200 OK", end="\r")
         time.sleep(0.04)
