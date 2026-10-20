@@ -8,8 +8,7 @@
 2. [Khởi Động Hệ Thống Bằng Docker](#2-khởi-động-hệ-thống-1-click)
 3. [Kiểm Tra Các Cổng Mạng Trên Trình Duyệt](#3-kiểm-tra-các-cổng-mạng)
 4. [Hướng Dẫn Chi Tiết Demo](#4-hướng-dẫn-chi-tiết-demo)
-5. [Hướng Dẫn Cách Tạo Dashboard Trên Grafana](#5-hướng-dẫn-cách-tạo-dashboard-trên-grafana)
-6. [Dừng và Dọn Dẹp Hệ Thống](#6-dừng-và-dọn-dẹp-hệ-thống)
+5. [Dừng và Dọn Dẹp Hệ Thống](#6-dừng-và-dọn-dẹp-hệ-thống)
 
 ---
 
@@ -84,40 +83,27 @@ Mở một cửa sổ Terminal mới và chạy script bắn tải:
 
 ---
 
-## 5. HƯỚNG DẪN CÁCH TẠO DASHBOARD TRÊN GRAFANA
+## 5. DỪNG VÀ DỌN DẸP HỆ THỐNG
 
-Nếu thầy cô yêu cầu giải thích hoặc tự tạo lại bằng tay:
+### 5.1. Lỗi xung đột tên container (`Conflict: container name "/order-service" is already in use`)
+* **Nguyên nhân:** Có container cũ từ lần chạy trước chưa được xóa sạch.
+* **Cách xử lý triệt để:**
+  ```bash
+  docker rm -f order-service prometheus grafana
+  docker compose up -d
+  ```
 
-1. Vào Grafana `http://localhost:3000` -> **Dashboards** -> **New Dashboard** -> **Add visualization** -> Chọn data source **Prometheus**.
-2. **Biểu đồ 1 - Throughput (RPS):**
-   - Câu lệnh PromQL: `sum(rate(http_server_requests_seconds_count[1m]))`
-   - Title: `HTTP Throughput (Requests Per Second)`
-   - Unit: `Throughput -> requests/sec (rps)`
-3. **Biểu đồ 2 - P99 Latency (Thời gian phản hồi 99%):**
-   - Câu lệnh PromQL: `histogram_quantile(0.99, sum(rate(http_server_requests_seconds_bucket[5m])) by (le)) * 1000`
-   - Title: `P99 Latency (Response Time)`
-   - Unit: `Time -> milliseconds (ms)`
-   - Thresholds: Xanh < 200ms, Vàng 200-1000ms, Đỏ > 1000ms.
-4. **Biểu đồ 3 - HTTP 5xx Error Rate (%):**
-   - Câu lệnh PromQL: `(sum(rate(http_server_requests_seconds_count{status=~"5.."}[1m])) or vector(0)) / (sum(rate(http_server_requests_seconds_count[1m])) > 0 or vector(1)) * 100`
-   - Title: `HTTP 5xx Error Rate (%)`
-   - Unit: `Misc -> Percent (0-100)`
-   - Thresholds: Xanh < 1%, Đỏ > 5%.
-5. **Biểu đồ 4 - JVM Heap Memory (MB):**
-   - Câu lệnh PromQL: `jvm_memory_used_bytes{area="heap"} / 1024 / 1024`
-   - Title: `JVM Heap Memory Used (MB)`
-   - Unit: `Data -> Megabytes (MB)`
-6. Bấm **Save Dashboard** và chỉnh góc trên bên phải thành **Refresh: 5s**.
+### 5.2. Lỗi trùng cổng mạng (`Port is already allocated: 8080 or 3000`)
+* **Nguyên nhân:** Máy tính của bạn đang mở sẵn ứng dụng khác (như Tomcat, Oracle DB, hoặc Grafana cài rời).
+* **Cách xử lý:** Mở file `docker-compose.yml`, đổi cổng bên ngoài thành `"8081:8080"` hoặc `"3001:3000"`.
 
----
-
-
-## 6. DỪNG VÀ DỌN DẸP HỆ THỐNG
-Khi thuyết trình xong:
+### 5.3. Lệnh dừng và dọn dẹp hệ thống sau khi báo cáo xong
+Khi kết thúc buổi thuyết trình, giải phóng hoàn toàn bộ nhớ RAM và CPU bằng lệnh:
 ```bash
 docker compose down
 ```
-Giải phóng toàn bộ tài nguyên RAM và CPU cho máy tính của bạn.
+*(Nếu muốn xóa sạch cả dữ liệu bộ nhớ đệm ổ cứng: `docker compose down -v`)*.
+
 
 ## Cấu trúc thư mục
 
